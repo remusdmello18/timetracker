@@ -164,47 +164,47 @@ class RecordController extends Controller
 
     
 
-    //  /**
-    //  * export the specified resource.
-    //  *
-    //  * @param  \App\Models\Record  $record
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function exporttocsv(Record $record)
-    // {
-    //     $userid=Auth::user()->id;
-    //     $query = DB::select("select * from records where user_id='$userid' order by date"); 
+     /**
+     * export the specified resource.
+     *
+     * @param  \App\Models\Record  $record
+     * @return \Illuminate\Http\Response
+     */
+    public function exporttocsv(Record $record)
+    {
+        $userid=Auth::user()->id;
+        $query = DB::select("select * from records where user_id='$userid' order by date"); 
  
          
-    //         $delimiter = ","; 
-    //         $filename = "record" . date('Y-m-d') . ".csv"; 
+            $delimiter = ","; 
+            $filename = "record" . date('Y-m-d') . ".csv"; 
              
-    //         // Create a file pointer 
-    //         $f = fopen('php://memory', 'w'); 
+            // Create a file pointer 
+            $f = fopen('php://memory', 'w'); 
              
-    //         // Set column headers 
-    //         $fields = array('ID', 'Task', 'In Time', 'Out Time', 'Date', 'Created', 'Updated', 'Deleted', 'User_Id'); 
-    //         fputcsv($f, $fields, $delimiter); 
+            // Set column headers 
+            $fields = array('ID', 'Task', 'In Time', 'Out Time', 'Date', 'Created', 'Updated', 'Deleted', 'User_Id'); 
+            fputcsv($f, $fields, $delimiter); 
              
-    //         // Output each row of the data, format line as csv and write to file pointer 
-    //         foreach($query as $row){ 
-    //             $user = Auth::user()->name; 
-    //             $lineData = array($row->id, $row->task, $row->intime, $row->outtime, $row->date, $row->created_at, $row->updated_at,$row->deleted_at, $user); 
-    //             fputcsv($f, $lineData, $delimiter); 
-    //         } 
+            // Output each row of the data, format line as csv and write to file pointer 
+            foreach($query as $row){ 
+                $user = Auth::user()->name; 
+                $lineData = array($row->id, $row->task, $row->intime, $row->outtime, $row->date, $row->created_at, $row->updated_at,$row->deleted_at, $user); 
+                fputcsv($f, $lineData, $delimiter); 
+            } 
              
-    //         // Move back to beginning of file 
-    //         fseek($f, 0); 
+            // Move back to beginning of file 
+            fseek($f, 0); 
              
-    //         // Set headers to download file rather than displayed 
-    //         header('Content-Type: text/csv'); 
-    //         header('Content-Disposition: attachment; filename="' . $filename . '";'); 
+            // Set headers to download file rather than displayed 
+            header('Content-Type: text/csv'); 
+            header('Content-Disposition: attachment; filename="' . $filename . '";'); 
              
-    //         //output all remaining data on a file pointer 
-    //         fpassthru($f); 
+            //output all remaining data on a file pointer 
+            fpassthru($f); 
 
-    //         return redirect()->route('home')->with('success', 'Export successful');
+            return redirect()->route('home')->with('success', 'Export successful');
        
-    // }
+    }
 }
 
