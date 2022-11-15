@@ -144,12 +144,13 @@ class RecordController extends Controller
 
 
 
-        $records = Record::selectRaw("date, TIMEDIFF(outtime,intime) as diff")
-                    ->where('user_id', $userid) 
-                    ->groupBy("date","outtime","intime") 
-                    ->having("diff", ">" , 0)
-                    ->get()                  
-                    ->pluck('date', 'diff');
+        // $records = DB::table('records')
+        //             ->selectRaw("date, TIMEDIFF(outtime,intime) as diff")
+        //             ->where('user_id', $userid) 
+        //             ->groupBy("date","outtime","intime") 
+        //             ->having("diff", ">" , 0)
+        //             ->get()                  
+        //             ->pluck('date', 'diff');
                     //->toaraay();
 
         // $dt = DB::select("select date, TIMEDIFF(outtime,intime) as diff from records where user_id='$userid' group by date,outtime,intime");
@@ -159,7 +160,14 @@ class RecordController extends Controller
               
         // return view('home', compact('labels', 'data'));
 
-        return view('home', compact('records'));
+        $result=DB::select(DB::raw("SELECT date, TIMEDIFF(outtime,intime) as diff  FROM `records` WHERE user_id = '$userid'
+                                        GROUP BY date,outtime,intime"));
+        $datas = "";
+        foreach ($result as $val) {
+            $datas.="['".$val->date."',".intval($val->diff)."],";
+        }
+
+        return view('home', compact('datas'));
     }
 
     

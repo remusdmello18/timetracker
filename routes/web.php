@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::resource('record', App\Http\Controllers\RecordController::class);
 Route::resource('home', App\Http\Controllers\HomeController::class);
+Route::resource('recordexport', App\Http\Controllers\RecordExportController::class);
 // Route::resource('create', App\Http\Controllers\RecordController::class);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/record', [App\Http\Controllers\RecordController::class, 'index'])->name('record');
@@ -29,5 +30,5 @@ Route::get('/record', [App\Http\Controllers\RecordController::class, 'index'])->
 // Route::post('/create', 'RecordController@AddRecord')->name('create');
 Route::get('home', [App\Http\Controllers\RecordController::class, 'show']);
 // Route::get('home', [App\Http\Controllers\RecordExportController::class, 'export']);
-Route::get('record/exporttocsv', [App\Http\Controllers\RecordController::class, 'exporttocsv']);
+// Route::get('/csv', [App\Http\Controllers\RecordController::class, 'exporttocsv']);
 

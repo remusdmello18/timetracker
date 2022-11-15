@@ -19,6 +19,7 @@
                 <span>&nbsp;</span>
                 
                     <h5>   {{ Auth::user()->name }} <h5>
+                        {{-- <a class="btn btn-danger float-end" href="{{ route('recordexport.export') }}">Export Record Data</a> --}}
                         @csrf
                         <table class="table">
                          <tr>

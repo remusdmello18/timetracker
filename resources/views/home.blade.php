@@ -5,8 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-                {{-- <a class="btn btn-danger float-end" href="{{ route('record.exporttocsv') }}">Export Record Data</a> --}}
+                <div class="card-header">{{ __('Dashboard') }}</div>                
 
                 <div class="card-body">
                     @if (session('status'))
@@ -18,9 +17,9 @@
                     {{-- {{ __('You are logged in!') }} --}}
 
                      
-                       <h1>Record based on Date</h1>
+                       {{-- <h1>Record based on Date</h1> --}}
                        
-                       <table class="table"> 
+                       {{-- <table class="table"> 
                         <tr>
                             <th>Date</th>
                             <th>Time</th>                           
@@ -37,8 +36,11 @@
                                @endforeach
                                
                         </tbody>
-                       </table>
-                       <canvas id="myChart" height="100px"></canvas>
+                       </table> --}}
+                       {{-- <div id="myChart" height="100px"></div> --}}
+
+
+                       <div id="curve_chart" style="height: 500px"></div>
 
                        
                 </div>
@@ -49,32 +51,29 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript">
 
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-  
-    function drawChart() {
-  
-    var data = google.visualization.arrayToDataTable([
-        ['date', 'diff'],
-  
-            @php
-                foreach($records as $key => $value) {
-                    echo "['".$value."', ".$key."],";
-                }
-            @endphp
-    ]);
-  
-    var options = {
-      title: 'Worked according to days',
-      curveType: 'function',
-      legend: { position: 'bottom' }
-    };
-  
-      var chart = new google.visualization.LineChart(document.getElementById('myChart'));
-  
-      chart.draw(data, options);
-    }
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Date', 'Difference'],  
+            <?php echo $datas; ?>
+        ]);
+
+
+        var options = {
+          title: 'Record based on Date',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
 </script>
+
 @endsection

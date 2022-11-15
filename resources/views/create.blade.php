@@ -49,7 +49,7 @@
 </div>
 @endsection
 
-{{-- @section('scripts')
+@section('timescripts')
 <script>
 // var items = 0;
 //     function addItem() {
@@ -67,11 +67,19 @@
         // row.innerHTML = html;
     }
  
-function settime(input) {
-    const d = new Date();
-    var intimevalue = document.getElementById("intime").value;
-    document.getElementById("outtime").value = intimevalue.setMinutes(d.getMinutes()+10);    
-}
+// function settime(input) { 
+//     const d = new Date();
+//     var intimevalue = document.getElementById("intime").value;
+//     document.getElementById("outtime").value = intimevalue.setMinutes(d.getMinutes()+10);    
+// }
+
+// $(function () {           
+
+//         $("#intime").change(function() {
+            
+//             $('#outtime'). timepicker({'disableTimeRanges':['intime', 14:00:00]})
+
+//         });
 </script>
-@endsection --}}
+@endsection
 

@@ -92,5 +92,6 @@
     </div>
 
     @yield('scripts')
+    @yield('timescripts')
 </body>
 </html>
